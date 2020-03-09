@@ -37,15 +37,21 @@ public class MongoConnection {
                 String auth_user = props.getProperty("mongodb.user");
                 String auth_pwd = props.getProperty("mongodb.password");
                 String dbname = props.getProperty("mongodb.admin");
-                MongoCredential credential = MongoCredential.createCredential(auth_user, dbname, auth_pwd.toCharArray());
-                //String client_url = "mongodb://" + hostname + ":" + port + "/"+ dbname;
-                //String client_url = "mongodb://"+auth_user+":"+ auth_pwd+"@"+hostname+":"+port+"/?authSource="+dbname+"&authMechanism=SCRAM-SHA-1";
 
-                //MongoClientURI uri = new MongoClientURI(client_url, options);
+                /* If we want to connect to our server with credentials */
+//                MongoCredential credential = MongoCredential.createCredential(auth_user, dbname, auth_pwd.toCharArray());
+
+                /* Connection to Localhost */
+                String client_url = "mongodb://" + hostname + ":" + port + "/"+ dbname;
+
+                MongoClientURI uri = new MongoClientURI(client_url, options);
 
                 try {
-                    mongo = new MongoClient(new ServerAddress(hostname), Arrays.asList(credential));
-                    //mongo = new MongoClient(uri);
+                    /* If we want to connect to our server with credentials */
+//                    mongo = new MongoClient(new ServerAddress(hostname), Arrays.asList(credential));
+
+                    /* Connection to Localhost */
+                    mongo = new MongoClient(uri);
                     mongo.setWriteConcern(WriteConcern.ACKNOWLEDGED);
 
                 } catch (Exception ex) {

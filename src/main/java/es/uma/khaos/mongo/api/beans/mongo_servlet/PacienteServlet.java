@@ -32,16 +32,6 @@ import es.uma.khaos.mongo.api.beans.service.Encrypt;
 @Path("/")
 public class PacienteServlet extends AbstractResource {
 
-    private final String dendrogramCommand = "run-Dendrogram.sh";
-    private final String clusterHeatmapCommand = "run-Mongoclustermaps.sh";
-    private final String geneRegNetworkCommand = "run-MongoGRN.sh";
-
-//	private static final String Upload_location_folder = "/home/antonio/Documents/Uploads/";
-//	private static final String Download_location_folder = "/home/antonio/Documents/Downloads/";
-
-    private static final String Upload_location_folder = "/root/App/uploadfiles/";
-    private static final String Download_location_folder = "/root/App/downloadfiles/";
-
     @Context
     private ServletContext context;
 
@@ -321,10 +311,14 @@ public class PacienteServlet extends AbstractResource {
 
         try {
 
+            Properties props = new Properties();
+            props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("mongodb.properties"));
+            String upload_location_folder = props.getProperty("scripts.Upload_location_folder");
+
             String samplename = sampledetails.getFileName();
             String filename = fileDetails.getFileName();
-            String uploadedFileLocation = Upload_location_folder + filename;
-            String uploadedMuestraLocation = Upload_location_folder + samplename;
+            String uploadedFileLocation = upload_location_folder + filename;
+            String uploadedMuestraLocation = upload_location_folder + samplename;
 
             // Guardamos los ficheros y muestras en un directorio local
             if (!"".equals(filename)) {
@@ -522,7 +516,7 @@ public class PacienteServlet extends AbstractResource {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadFilebyPath(@QueryParam("id") String id_user, @QueryParam("id_pac") String id_pac, @QueryParam("filename") String fileName,
                                        @Context HttpHeaders headers,
-                                       @Context UriInfo uriInfo) {
+                                       @Context UriInfo uriInfo) throws IOException {
         ResponseBuilder builder = getResponseBuilder(headers, "/createPatientResponse.jsp");
         String type = "Files";
 
@@ -534,7 +528,7 @@ public class PacienteServlet extends AbstractResource {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadSamplebyPath(@QueryParam("idUser") String id_user, @QueryParam("idPaciente") String id_pac, @QueryParam("Sample") String fileName,
                                          @Context HttpHeaders headers,
-                                         @Context UriInfo uriInfo) {
+                                         @Context UriInfo uriInfo) throws IOException {
         ResponseBuilder builder = getResponseBuilder(headers, "/createPatientResponse.jsp");
 
         String type = "Clinical_Samples";
@@ -543,16 +537,19 @@ public class PacienteServlet extends AbstractResource {
 
     }
 
-    private Response download(String id_user, String id_pac, String fileName, String type, HttpHeaders headers, UriInfo uriInfo, ResponseBuilder builder) {
+    private Response download(String id_user, String id_pac, String fileName, String type, HttpHeaders headers, UriInfo uriInfo, ResponseBuilder builder) throws IOException {
 
         Logger logger = Logger.getLogger(PacienteServlet.class);
 
-        String FILE_FOLDER = Download_location_folder;
-        String fileLocation = FILE_FOLDER + fileName;
+        Properties props = new Properties();
+        props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("mongodb.properties"));
+        String download_location_folder = props.getProperty("scripts.Download_location_folder");
+
+        String fileLocation = download_location_folder + fileName;
 
         PacienteDao pacienteDao = new PacienteDao();
         //Borramos archivos previamente descargados en nuestro directorio local
-        pacienteDao.deleteLocalFiles(FILE_FOLDER);
+        pacienteDao.deleteLocalFiles(download_location_folder);
         //Primero descargamos el documento de Mongo a un directorio Local
         pacienteDao.download_file_from_mongodb(fileName, type, id_user, id_pac);
 
@@ -561,7 +558,7 @@ public class PacienteServlet extends AbstractResource {
         myFormat.setGroupingUsed(true);
 
         // Retrieve the file
-        File file = new File(FILE_FOLDER + fileName);
+        File file = new File(download_location_folder + fileName);
         if (file.exists() && file.isFile()) {
             builder.buildResponse(file);
             //En el caso que exista el documento en el directorio lo descargaremos
@@ -766,10 +763,11 @@ public class PacienteServlet extends AbstractResource {
         props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("mongodb.properties"));
         String scriptDirectory = props.getProperty("scripts.directory");
 
-        System.out.println(scriptDirectory + dendrogramCommand);
+        String run_cluster_heat_map = "run-Dendrogram.sh";
+        System.out.println(scriptDirectory + run_cluster_heat_map);
 
         String[] cmd = new String[]{
-                scriptDirectory + dendrogramCommand,
+                scriptDirectory + run_cluster_heat_map,
                 formatStringListToPython(ids).replaceAll(" ", ""),
                 formatStringListToPython(labels).replaceAll(" ", ""),
                 String.format(Locale.US, "%.2f", percentage)
@@ -799,10 +797,11 @@ public class PacienteServlet extends AbstractResource {
         props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("mongodb.properties"));
         String scriptDirectory = props.getProperty("scripts.directory");
 
-        System.out.println(scriptDirectory + clusterHeatmapCommand);
+        String run_heatmap = "run-Mongoclustermaps.sh";
+        System.out.println(scriptDirectory + run_heatmap);
 
         String[] cmd = new String[]{
-                scriptDirectory + clusterHeatmapCommand,
+                scriptDirectory + run_heatmap,
                 formatStringListToPython(ids).replaceAll(" ", ""),
                 formatStringListToPython(labels).replaceAll(" ", ""),
                 String.format(Locale.US, "%.2f", percentage)
@@ -839,10 +838,11 @@ public class PacienteServlet extends AbstractResource {
         props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("mongodb.properties"));
         String scriptDirectory = props.getProperty("scripts.directory");
 
-        System.out.println(scriptDirectory + geneRegNetworkCommand);
+        String run_grn = "run-MongoGRN.sh";
+        System.out.println(scriptDirectory + run_grn);
 
         String[] cmd = new String[]{
-                scriptDirectory + geneRegNetworkCommand,
+                scriptDirectory + run_grn,
                 formatStringListToPython(ids).replaceAll(" ", ""),
                 formatStringListToPython(labels).replaceAll(" ", ""),
                 String.format(Locale.US, "%.2f", percentage1),

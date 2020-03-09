@@ -17,11 +17,6 @@ import es.uma.khaos.mongo.api.beans.service.Database;
 
 public class PacienteDao {
 
-//    private static final String Upload_location_folder = "/home/antonio/Documents/Uploads/";
-//    private static final String Download_location_folder = "/home/antonio/Documents/Downloads/";
-    private static final String Upload_location_folder = "/root/App/uploadfiles/";
-    private static final String Download_location_folder = "/root/App/downloadfiles/";
-
     public static String clinical_samples = "_clinicalSamples";
     public static String files = "_files";
     public static String form = "Form";
@@ -29,6 +24,9 @@ public class PacienteDao {
     public static String filename = "filename";
     public static String sample_name = "sample_name";
     public static String metadata = "metadata";
+
+    public static String upload_location_folder;
+    public static String download_location_folder;
 
     private DBCollection collectionUser;
     private DB database;
@@ -39,12 +37,16 @@ public class PacienteDao {
         try {
             Properties props = new Properties();
             props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("mongodb.properties"));
+
+            upload_location_folder = props.getProperty("scripts.Upload_location_folder");
+            download_location_folder = props.getProperty("scripts.Download_location_folder");
+
+            /* Establish Database Connection */
             this.database = Database.DatabaseConnection().getDB(props.getProperty("mongodb.dbname"));
             this.collectionUser = database.getCollection(props.getProperty("mongodb.dbcollection"));
             this.patients = "Patients";
             this.patient_information = "_patientInformation";
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -184,7 +186,7 @@ public class PacienteDao {
             patientList.add(paciente);
 
             //Llamamos a los métodos para insertar ficheros y muestras. Además declaramos el path donde se guardarán temporalmente
-            String pathname = Upload_location_folder;
+            String pathname = upload_location_folder;
             List<DBObject> docFolders = insertFolders(document, user, paciente, objectId, metadataDocument, pathname);
             List<DBObject> docSamples = insertSample(user, nameSample, paciente, objectId, metadataSamples, pathname);
 
@@ -219,7 +221,7 @@ public class PacienteDao {
             paciente.setId(idP);
             ObjectId objectId = new ObjectId();
 
-            String pathname = Upload_location_folder;
+            String pathname = upload_location_folder;
             List<DBObject> docFolders = insertFolders(document, user, paciente, objectId, metadataDocument, pathname);
             List<DBObject> docSamples = insertSample(user, nameSample, paciente, objectId, metadataSamples, pathname);
 
@@ -317,7 +319,7 @@ public class PacienteDao {
                 if (entry.getKey().equals(patient_information)) {
                     Map<String, Object> entry2 = (Map<String, Object>) entry.getValue();
                     for (Entry<String, Object> entry3 : entry2.entrySet()) {
-                        if(!(entry3.getValue()  instanceof List)) // We don´t take array
+                        if (!(entry3.getValue() instanceof List)) // We don´t take array
                         {
                             map.put(entry3.getKey(), entry3.getValue());
                         }
@@ -425,8 +427,7 @@ public class PacienteDao {
 
                     for (Entry<String, Object> entry3 : entry2.entrySet()) {
                         /* If patient parameter is not a List we can search for it */
-                        if (!(entry3.getValue()  instanceof List))
-                        {
+                        if (!(entry3.getValue() instanceof List)) {
                             Map<String, Object> entry4 = (Map<String, Object>) entry3.getValue();
                             for (Entry<String, Object> entry5 : entry4.entrySet()) {
                                 if (entry5.getKey().equals("Value")) {
@@ -467,7 +468,7 @@ public class PacienteDao {
             GridFSDBFile FileOutput = gfsFolder.findOne(query);
 
             // Lo guardamos en el nuevo directorio
-            FileOutput.writeTo(Download_location_folder + document);
+            FileOutput.writeTo(download_location_folder + document);
 
             //Lo borramos del directorio local
 
@@ -675,17 +676,15 @@ public class PacienteDao {
 
                     /* Si queremos insertar las evaluaciones del paciente como un array de evaluaciones */
                     for (Entry<String, Object> entry3 : entry2.entrySet()) {
-                        if(entry3.getValue() instanceof List) //EVALUACIONES
+                        if (entry3.getValue() instanceof List) //EVALUACIONES
                         {
                             for (Iterator it = ((List) entry3.getValue()).iterator(); it.hasNext(); ) {
                                 Map<String, Object> evaluations_iterator = (Map<String, Object>) it.next();
-                                for(Entry<String,Object> evaluations: evaluations_iterator.entrySet())
-                                {
+                                for (Entry<String, Object> evaluations : evaluations_iterator.entrySet()) {
 
                                     System.out.println(evaluations.getValue());
                                     Map<String, Object> eval = (Map<String, Object>) evaluations.getValue();
-                                    for(Entry<String,Object> entry_list: eval.entrySet())
-                                    {
+                                    for (Entry<String, Object> entry_list : eval.entrySet()) {
                                         if (entry_list.getKey().equals("Value")) {
                                             String field_decryption = encryptionDB.decrypt_field((String) entry_list.getValue(), user.getSalt());
                                             eval.put("Value", field_decryption);
@@ -693,8 +692,7 @@ public class PacienteDao {
                                     }
                                 }
                             }
-                        }else
-                        {
+                        } else {
                             Map<String, Object> entry4 = (Map<String, Object>) entry3.getValue();
                             for (Entry<String, Object> entry5 : entry4.entrySet()) {
                                 if (entry5.getValue() instanceof String) {
@@ -731,8 +729,8 @@ public class PacienteDao {
 
     }
 
-    public static void main(String[] args){
-        PacienteDao pacienteDao = new PacienteDao();
+    public static void main(String[] args) {
+//        PacienteDao pacienteDao = new PacienteDao();
 //        User user = pacienteDao.find_user_all_patients("5dd53b19f534772c8292a6cd");
 //        System.out.println(pacienteDao.find_fields_keys("5dd53b19f534772c8292a6cd"));
 //        System.out.println(user.getPatientList());
