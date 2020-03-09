@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>es.uma.khaos</groupId>
+    <artifactId>melanoma</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>MongoWebApp</name>
+    <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+    </plugins>
+    </build>
+   
+    <repositories>
+        <repository>
+            <id>Datanucleus</id>
+            <url>http://www.datanucleus.org/downloads/maven2/</url>
+        </repository>
+        <repository>
+            <id>Central</id>
+            <url>http://central.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+    
+    <properties>
+        <kotlin.version>1.2.41</kotlin.version>
+    </properties>
+    <dependencies>
+    
+    <!-- MongoDB Java Drivers -->
+    <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongo-java-driver</artifactId>
+        <version>2.13.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.struts</groupId>
+        <artifactId>struts2-core</artifactId>
+        <version>2.5.2</version>
+    </dependency>
+     
+     <!-- PARSE JSON -->
+     <dependency>
+         <groupId>com.google.code.gson</groupId>
+         <artifactId>gson</artifactId>
+         <version>2.2.4</version>
+     </dependency>
+
+     <dependency>
+         <groupId>org.json</groupId>
+         <artifactId>json</artifactId>
+         <version>20180130</version>
+     </dependency>
+     <dependency>
+         <groupId>com.googlecode.json-simple</groupId>
+         <artifactId>json-simple</artifactId>
+         <version>1.1</version>
+     </dependency>
+
+     <dependency>
+         <groupId>com.drewnoakes</groupId>
+         <artifactId>metadata-extractor</artifactId>
+         <version>2.4.0-beta-1</version>
+     </dependency>
+     
+         <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+    
+    <!-- Jersey packages -->
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.containers</groupId>
+      <artifactId>jersey-container-servlet</artifactId>
+      <version>2.25</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.bundles</groupId>
+      <artifactId>jaxrs-ri</artifactId>
+      <version>2.25</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.media</groupId>
+      <artifactId>jersey-media-json-jackson</artifactId>
+      <version>2.25</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.media</groupId>
+      <artifactId>jersey-media-jaxb</artifactId>
+      <version>2.25</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.ext</groupId>
+      <artifactId>jersey-mvc-jsp</artifactId>
+      <version>2.25</version>
+    </dependency>
+    <dependency>
+     <groupId>org.glassfish.jersey.ext</groupId>
+	 <artifactId>jersey-bean-validation</artifactId>
+	 <version>2.25</version>
+	</dependency>
+	<dependency>
+     <groupId>org.glassfish.jersey.media</groupId>
+     <artifactId>jersey-media-multipart</artifactId>
+     <version>2.25.1</version>
+	</dependency>
+	
+	<!-- Oracle -->
+    <dependency>
+        <groupId>oracle</groupId>
+        <artifactId>ojdbc6</artifactId>
+        <version>11.2.0.3</version>
+    </dependency>
+    
+    <!-- SPARK -->
+    <dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-core_2.10</artifactId>
+        <version>2.2.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-streaming_2.10</artifactId>
+        <version>2.2.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-mllib_2.10</artifactId>
+        <version>2.2.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.scalanlp</groupId>
+        <artifactId>breeze_2.12</artifactId>
+        <version>0.13.2</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-servlet_3.0_spec</artifactId>
+        <version>1.0</version>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>2.6.5</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.6.5</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>2.6.5</version>
+    </dependency>
+    <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.11</version>
+    </dependency>
+   
+    </dependencies>
+</project>
