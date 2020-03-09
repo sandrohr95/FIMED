@@ -1,0 +1,2 @@
+# FIMED
+FIMED application for flexible integration of biomedical data is a new software solution that facilitates the handling of large amounts of heterogeneous data in clinical research processes, thus improving the efficiency and quality of the data. It offers numerous benefits for the user in each of the aspects of the phases of clinical trials, including the possibility of inserting patient data dynamically and performing different studies.
