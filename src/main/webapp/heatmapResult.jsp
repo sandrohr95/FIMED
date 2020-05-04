@@ -7,15 +7,34 @@
         <c:redirect url="login.jsp"/>
     </c:if>
     <script src="resources/js/response.js"></script>
-    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.6.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-1.0.2.min.css" type="text/css" />
-    <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.2.min.css" type="text/css" />
-    <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-tables-1.0.2.min.css" type="text/css">
-    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-1.0.2.min.js"></script>
-    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-api-1.0.2.min.js"></script>
-    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.2.min.js"></script>
-    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-tables-1.0.2.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-tables.css" integrity="sha256-g24dX7HcOoj1KI2TYtOYKvU1N8grqnVlMy1lyh9xh1k=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-tables.min.css" integrity="sha256-iBWv5+ZmZ8SY8hMJtnEnUJYInLHV5obfVmlgSKOhzxA=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-widgets.css" integrity="sha256-294hQIn0XhFkDXAXbQjGblyIr7VEgkw8U0I1wHy3+HI=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-widgets.min.css" integrity="sha256-U/R5A6NKSaMvxW0FaCRdwImzht8RW6tFYyNdqgQhNsc=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh.css" integrity="sha256-ki++R2T9pNBdHdfPxj5Ck010Gt9vOjdO3Z1Mz5b09IA=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh.min.css" integrity="sha256-c0kT5aMIjtsU00xTb2BRHw8tBQffDOE2EAUaHSYFbu0=" crossorigin="anonymous" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-api.js" integrity="sha256-nrX1dtc/rzSQha9UX8g8mX5SsKEr0hLIIivl8tHvZfM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-api.js.map" integrity="undefined" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-api.min.js" integrity="sha256-koKIWC9lHWgvAnNGfKu/ENo3u9tJ8bJs+ygUKPztPp4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-api.min.js.map" integrity="undefined" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-gl.js" integrity="sha256-PIo63glSQDC61IGWt1oKIIFaICEomsAwmEtcZ7MJ+wg=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-gl.js.map" integrity="undefined" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-gl.min.js" integrity="sha256-Pch1dcFB/a8q34uXYigbNHPU+m/u7tZnEonQFTKEdI8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-gl.min.js.map" integrity="undefined" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-tables.js" integrity="sha256-rcB6N0mOitXxsMRlh2fveYxGaMgxIfQhOgbd8e1+xlY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-tables.js.map" integrity="undefined" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-tables.min.js" integrity="sha256-Y3uT2ZjOEvJ2JpQMCgEi/EcNAauCs/530r5oZ704L/g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-tables.min.js.map" integrity="undefined" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-tables.min.js.map" integrity="undefined" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-widgets.js" integrity="sha256-7FPwQ82fy1FuS77wc1iygAdUQkjTfzYfg63U45X1+8g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-widgets.js.map" integrity="undefined" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-widgets.min.js" integrity="sha256-xiIPCg2LB2RcK1IMQuAvcLQRdzEq0VEA06UhOr58IqA=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh-widgets.min.js.map" integrity="undefined" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh.js" integrity="sha256-syNdF8jEC9LqIXcocvB/jTQsKyuunvIqk03ppKIeItQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh.js.map" integrity="undefined" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh.min.js" integrity="sha256-JOsToc27fokNFt3bd4aCO4GfcTmU9IYmQ0YoBsQiK4s=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.0.2/bokeh.min.js.map" integrity="undefined" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/header.jsp">

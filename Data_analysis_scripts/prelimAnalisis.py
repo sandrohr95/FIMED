@@ -1,5 +1,5 @@
 import os
-path='/home/antonio/Anaconda_Projects/Python_Projects/generegulatorynetworks'
+path='/home/dani/Khaos_Project/FIMED/Data_analysis_scripts'
 os.chdir(path)
 import parse2 as pr
 import numpy as np

@@ -2,11 +2,10 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Jun 11 09:48:09 2019
-
 @author: Sandro-Hurtado
 """
 from dask.distributed import Client, LocalCluster
-from arboretum.algo import grnboost2 , genie3
+from arboreto.algo import grnboost2 , genie3
 import networkx as nx
 from scipy.spatial.distance import pdist, squareform
 import pandas as pd
@@ -16,12 +15,12 @@ import seaborn as sns
 
 # Include Plotly library for visualization
 import plotly.graph_objs as go
-import plotly.plotly
+import chart_studio.plotly
 import plotly.figure_factory as ff
 import plotly
 # print(plotly.__version__)
 from plotly.offline import plot
-plotly.tools.set_credentials_file(username='sandrohr', api_key='geLPhCC0443kFfOFbeU5')
+chart_studio.tools.set_credentials_file(username='sandrohr', api_key='geLPhCC0443kFfOFbeU5')
 from plotly.graph_objs import Figure,Data,Layout,Scatter3d,XAxis,YAxis,ZAxis,Scene,Margin,Annotations,Font,Annotation,Line, Marker
 
 # Include Bokeh library for visualization
@@ -44,7 +43,7 @@ class GenePlots:
     def __init__(self, geneData):
        self.dfz = geneData
 
-    def GeneRegulationNetwork(self, netthreshold, config, netconfig):
+    def GeneRegulationNetwork(self, netthreshold, config):
 
         # Transpose the dataframe to get correct format to create the network
         dfT = self.dfz.transpose()
@@ -56,12 +55,8 @@ class GenePlots:
         client = Client(processes=False)
         
         # create dataframe network with columns --> TF, target Gene, Importance
-        if netconfig == 1:
-            network =  grnboost2(expression_data= dfT, tf_names=tf_names, client_or_address=client)
-            print("grnboost2")
-        else:
-            network =  genie3(expression_data= dfT, tf_names=tf_names, client_or_address=client)
-
+        network =  grnboost2(expression_data= dfT, tf_names=tf_names, client_or_address=client)
+        print("grnboost2")
         # We put a threshold because we have a lot of conections and we want to obtain a clear graph with the most representatives conected genes
         limit=network.index.size*netthreshold
 
@@ -154,7 +149,7 @@ class GenePlots:
                 ]),
             ))
 
-        plotly.offline.plot(fig,filename='3DNetworkx_.html', auto_open=True)
+        plotly.offline.plot(fig,filename='3DNetworkx_.html', auto_open=False)
         script = plot(fig, output_type='div', include_plotlyjs=False ,show_link=True)
         #print(script)
         return script
@@ -214,7 +209,7 @@ class GenePlots:
         script, div = components(p)
         print(script,div)
     
-        return div
+        return script,div
     
     def ClusterHeatmap(self):
     
@@ -300,7 +295,8 @@ class GenePlots:
                                            'ticks':""}})
     
         # Plot!
-        plotly.offline.plot(figure,filename='ClusterMap.html', auto_open=True)
+        plotly.offline.plot(figure,filename='ClusterMap.html', auto_open=False)
+#        plot(figure, output_type='div', include_plotlyjs=False, show_link=True)
         script = plot(figure, output_type='div', include_plotlyjs=False ,show_link=True)
         print(script)
     
@@ -315,7 +311,3 @@ class GenePlots:
         sns.clustermap(self.dfz)
     
     
-
-          
-
-

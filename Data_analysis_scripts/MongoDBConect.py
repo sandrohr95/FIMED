@@ -14,7 +14,7 @@ import gridfs
 class MongoConecction:
 
     def __init__(self):
-        mongo_client = MongoClient("mongodb://root:kha0sd3v@192.168.213.38:27017")
+        mongo_client = MongoClient("mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false")
         self.db = mongo_client.FIMED
     
     def read_from_mongo(self, input):
