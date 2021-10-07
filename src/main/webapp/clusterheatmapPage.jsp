@@ -260,7 +260,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                             </button>
-                                            <button type="button" class="btn btn-default" onclick="submitDendrogram()">
+                                            <button type="button" class="btn btn-default" onclick="submit_dendrogram()">
                                                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;Submit
                                             </button>
                                         </div>

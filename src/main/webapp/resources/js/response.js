@@ -1,7 +1,5 @@
 
 function generateServices() {
-    var x = location.href;
-    var y = location.search.id;
     var parsedUrl = new URL(window.location);
     var percentage = parsedUrl.searchParams.get("percentage1");
     var id = parsedUrl.searchParams.getAll("id");
@@ -12,6 +10,8 @@ function generateServices() {
     var geneRegNetwork = parsedUrl.searchParams.get("geneRegNetwork");
     var configuration = parsedUrl.searchParams.get("configuration");
     var nameAnalysis = parsedUrl.searchParams.get("nameAnalysis");
+    var algorithm = parsedUrl.searchParams.get("algorithm");
+
 
     if (clusterHeatmap === 'true') {
         $.get({
@@ -26,11 +26,9 @@ function generateServices() {
             },
 
             function (responsecluster) {
-                console.log("ENTRA EN LA FUNCION CLUSTER");
-                console.log(responsecluster);
                 if (responsecluster != null) {
                     document.getElementById("loading").style.display = "none";
-                    if (responsecluster == "") {
+                    if (responsecluster === "") {
                         document.getElementById('alertError').style.display = "inline";
                     } else {
                         $("#codigohtml2").html(responsecluster);
@@ -38,9 +36,7 @@ function generateServices() {
 
                 }
             });
-    }
-
-    if (dengrogramHeatmap == 'true') {
+    }else if (dengrogramHeatmap === 'true') {
         $.get({
                 method: 'GET',
                 url: "api/service/dendrogramHeatmap"
@@ -55,7 +51,7 @@ function generateServices() {
             function (responsecluster) {
                 document.getElementById("loading").style.display = "none";
                 if (responsecluster != null) {
-                    if (responsecluster == "") {
+                    if (responsecluster === "") {
 
                         document.getElementById('alertError').style.display = "inline";
                     } else {
@@ -63,9 +59,7 @@ function generateServices() {
                     }
                 }
             });
-    }
-
-    if (geneRegNetwork == 'true') {
+    }else if (geneRegNetwork === 'true') {
         $.get({
                 method: 'GET',
                 url: "api/service/gene_regulatory_network"
@@ -76,13 +70,14 @@ function generateServices() {
                 "percentage1": percentage,
                 "max_links": max_links,
                 "configuration": configuration,
+                "algorithm": algorithm,
                 "name_analysis": nameAnalysis
             },
 
             function (response) {
                 if (response != null) {
                     document.getElementById("loading").style.display = "none";
-                    if (response == "") {
+                    if (response === "") {
                         document.getElementById('alertError').style.display = "inline";
                     } else {
                         $("#codigohtml").html(response);
@@ -91,6 +86,8 @@ function generateServices() {
                 }
 
             });
+    }else {
+        alert("The algorithm can not be executed")
     }
 
 }

@@ -11,15 +11,13 @@ var result = [];
 
 ////// Services ////
 var checkBoxHeatMap = document.getElementById("heatMap");
-var checkBoxGRN = document.getElementById("geneRegNetwork");
 var checkBoxDendrogram = document.getElementById("dendrogram");
 var a = 0;
 
-//// Percentage slide /////////
 var percentageSlide = document.getElementById("percentage");
 var percentageOutput = document.getElementById("percentageOut");
 var configurationGRN = document.getElementById("configuration");
-
+var algorithm = document.getElementById("grn_algorithm");
 
 // Display the default slider value
 percentageOutput.innerHTML = percentageSlide.value + "%";
@@ -153,9 +151,6 @@ function addsamplesGRN(idMuestra, idPac) {
 
     console.log(samples);
 
-    if (samples.length > 2) {
-        checkBoxGRN.disabled = false;
-    }
 
 }
 
@@ -222,12 +217,6 @@ function deletesamplesGRN() {
 
     var elem = document.getElementById('SamplesGRN');
     elem.removeChild(elem.lastChild);
-
-    if (samples.length > 2) {
-        checkBoxGRN.disabled = false;
-    } else {
-        checkBoxGRN.disabled = true;
-    }
 }
 
 //Elimino las muestra seleccionadas tanto en el array que las contiene como en HTML
@@ -242,33 +231,17 @@ function deletesamplesDendrogram() {
 
     if (samples.length > 1) {
         checkBoxDendrogram.disabled = false;
-    } else {
-        checkBoxGRN.disabled = true;
     }
+
 }
 
-//// Activar # maximum of links of the Gene Regulatory Network
 
-function activeMaxLinks() {
-
-    if (checkBoxGRN.checked == true) {
-        document.getElementById("slidelinks").style.display = "inline";
-    } else {
-        document.getElementById("slidelinks").style.display = "none";
-
-    }
-}
-
-function submitservices() {
+function submit_services() {
 
     var ids = "";
     var etiquetas = "";
     var percentage = percentageSlide.value / 100;
-    // Analysis name
     var name_analysis = document.getElementById("name_analysis").value;
-    console.log("nombre del análisis");
-    console.log(name_analysis);
-
 
     services.clusterHeatmap = checkBoxHeatMap.checked;
     var option_label = document.getElementById("optionlabel").value;
@@ -278,17 +251,14 @@ function submitservices() {
         ids += "&id=" + sample.idS;
         for (sl in sample.label) {
             if (sample.label[sl] === option_label) {
-                console.log("AQUI ESTAMOS MIRANDO")
                 console.log(sample.value[sl])
                 etiquetas += "&label=" + i + "-" + sample.value[sl];
             }
         }
-
     }
 
     if (checkBoxHeatMap.checked === true) {
         var urlHeatMap = "heatmapResult.jsp?" + "&clusterHeatmap=" + services.clusterHeatmap
-            + "&geneRegNetwork=" + services.geneRegNetwork
             + "&percentage1=" + percentage
             + ids + etiquetas + "&nameAnalysis=" + name_analysis;
 
@@ -311,13 +281,8 @@ function submitGRN() {
     var percentage = percentageSlide.value / 100;
     var maxlinks = maxlinksSlide.value / 100;
     var conf = configurationGRN.value;
-    // Analysis name
+    var grn_algorithm = algorithm.value;
     var name_analysis = document.getElementById("name_analysis").value;
-    console.log("nombre del análisis");
-    console.log(name_analysis);
-
-
-    services.geneRegNetwork = checkBoxGRN.checked;
 
     for (i in samples) {
         var sample = samples[i];
@@ -325,14 +290,13 @@ function submitGRN() {
         etiquetas += "&label=" + i + "-" + sample.label;
     }
 
-    if (checkBoxGRN.checked == true) {
-        var urlGRN = "resultGRN.jsp?" + "&clusterHeatmap=" + services.clusterHeatmap
+    if (grn_algorithm !== " ") {
+        services.geneRegNetwork = "true";
+        var urlGRN = "resultGRN.jsp?"
             + "&geneRegNetwork=" + services.geneRegNetwork
             + "&max_links=" + maxlinks
             + "&percentage1=" + percentage
-            + ids + etiquetas + "&configuration=" + conf + "&nameAnalysis=" + name_analysis;
-
-        console.log(samples);
+            + ids + etiquetas + "&configuration=" + conf + "&algorithm=" + grn_algorithm + "&nameAnalysis=" + name_analysis;
 
         if (samples.length > 2) {
             window.location.href = urlGRN;
@@ -345,7 +309,7 @@ function submitGRN() {
     }
 }
 
-function submitDendrogram() {
+function submit_dendrogram() {
     var ids = "";
     var etiquetas = "";
     var percentage = percentageSlide.value / 100;
@@ -362,7 +326,7 @@ function submitDendrogram() {
         etiquetas += "&label=" + i + "-" + sample.label;
     }
 
-    if (checkBoxDendrogram.checked == true) {
+    if (checkBoxDendrogram.checked === true) {
         var urlDendrogram = "resultDendrogram.jsp?" + "&dengrogramHeatmap=" + services.dendrogramHeatmap
             + "&percentage1=" + percentage
             + ids + etiquetas + "&nameAnalysis=" + name_analysis;

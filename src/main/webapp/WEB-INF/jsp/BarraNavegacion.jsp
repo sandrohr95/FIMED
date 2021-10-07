@@ -129,7 +129,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="heatmapPage.jsp"><strong>HeatMap</strong></a></li>
                         <li><a href="clusterheatmapPage.jsp"><strong>Dendrogram + Heatmap</strong></a></li>
-                        <li><a href="grnPage.jsp"><strong>Gene Regulatory Network</strong></a></li>
+                        <li><a href="grnPage.jsp"><strong>Gene Regulatory Networks</strong></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

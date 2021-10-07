@@ -39,19 +39,19 @@ public class MongoConnection {
                 String dbname = props.getProperty("mongodb.admin");
 
                 /* If we want to connect to our server with credentials */
-//                MongoCredential credential = MongoCredential.createCredential(auth_user, dbname, auth_pwd.toCharArray());
+                MongoCredential credential = MongoCredential.createCredential(auth_user, dbname, auth_pwd.toCharArray());
 
                 /* Connection to Localhost */
                 String client_url = "mongodb://" + hostname + ":" + port + "/"+ dbname;
 
-                MongoClientURI uri = new MongoClientURI(client_url, options);
+//                MongoClientURI uri = new MongoClientURI(client_url, options);
 
                 try {
                     /* If we want to connect to our server with credentials */
-//                    mongo = new MongoClient(new ServerAddress(hostname), Arrays.asList(credential));
+                    mongo = new MongoClient(new ServerAddress(hostname), Arrays.asList(credential));
 
                     /* Connection to Localhost */
-                    mongo = new MongoClient(uri);
+//                    mongo = new MongoClient(uri);
                     mongo.setWriteConcern(WriteConcern.ACKNOWLEDGED);
 
                 } catch (Exception ex) {

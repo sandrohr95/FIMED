@@ -270,7 +270,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                             </button>
-                                            <button type="button" class="btn btn-default" onclick="submitservices()">
+                                            <button type="button" class="btn btn-default" onclick="submit_services()">
                                                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;Submit
                                             </button>
                                         </div>

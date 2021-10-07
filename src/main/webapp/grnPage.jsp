@@ -180,14 +180,14 @@
                     </c:forEach>
                 </table>
 
-                <form id="cluster_heatmap" name="cluster_heatmap" method="get"> <!--action="./action/redirectResults.jsp"
+                <form id="grnboost2_form" name="grnboost2_form" method="get"> <!--action="./action/redirectResults.jsp"
                           enctype="multipart/form-data" acceptcharset="UTF-8"> -->
                     <div class="form-group">
-                        <label class="col-sm-12 control-label">Analysis samples</label>
+                        <label class="col-sm-offset-1 col-sm-11 control-label">ANALYSIS SAMPLES</label>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-2 col-sm-2 control-label">Selected samples</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-offset-1 col-sm-2 control-label">Selected samples</label>
+                        <div class="col-sm-7">
                             <div class="table-responsive">
                                 <table class="table table-condensed">
                                     <thead>
@@ -214,14 +214,18 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-offset-2 col-sm-10 control-label">Services</label>
-                        <div class="col-sm-offset-4 col-sm-4">
-                            <label class="control-label">
-                                <input type="checkbox" id="geneRegNetwork" onclick="activeMaxLinks()" disabled> Gene
-                                regulatory network
-                            </label>
+                        <label class="col-sm-offset-1 col-sm-10 control-label">SERVICES</label>
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <label for="grn_algorithm"> Select one of these GRN Algorithms (By Default GRNBOOST2): </label>
+                            <select class="form-control" id="grn_algorithm">
+                                <option value=1>GENIE3</option>
+                                <option selected value=2>GRNBOOST2</option>
+                                <option value = 3>PANDA</option>
+                                <option value= 4>LIONESS</option>
+
+                            </select>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-offset-1 col-sm-4">
                             <button type="button" class="btn" data-toggle="modal" data-target="#advanceConf">
                                 Advanced Configuration
                             </button>
@@ -242,8 +246,8 @@
                                 <span id="percentageOut"></span>
                             </div>
                         </div>
-
-                        <div class="slidecontainer col-sm-12" id="slidelinks" style="display: none">
+<%--                        style="display: none"--%>
+                        <div class="slidecontainer col-sm-12" id="slidelinks" >
                             <label class="col-sm-4 control-label"># maximum of links of the Gene Regulatory
                                 Network</label>
                             <div class="col-sm-6">

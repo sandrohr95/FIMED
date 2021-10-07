@@ -822,20 +822,19 @@ public class PacienteServlet extends AbstractResource {
             @QueryParam(value = "max_links") double maxLinks,
             @QueryParam(value = "configuration") int configuration,
             @QueryParam(value = "name_analysis") String name_analysis,
+            @QueryParam(value = "algorithm") int algorithm,
             @Context HttpServletRequest request,
             @Context HttpHeaders headers) throws Exception {
 
-        System.out.println("PARÁMETROS1");
         System.out.println(ids);
         System.out.println(labels);
         System.out.println(percentage1);
         System.out.println(maxLinks);
         System.out.println(configuration);
-        //FIJAMOS LA CONFIGURACION DE LA RED A GRNBOOST2 POR AHORA
-        //int network = 2;
+        System.out.println(algorithm);
 
         Properties props = new Properties();
-        props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("mongodb.properties"));
+        props.load(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("mongodb.properties")));
         String scriptDirectory = props.getProperty("scripts.directory");
 
         String run_grn = "run-MongoGRN.sh";
@@ -847,9 +846,10 @@ public class PacienteServlet extends AbstractResource {
                 formatStringListToPython(labels).replaceAll(" ", ""),
                 String.format(Locale.US, "%.2f", percentage1),
                 String.valueOf(maxLinks),
-                String.valueOf(configuration)
-//                String.valueOf(network)
+                String.valueOf(configuration),
+                String.valueOf(algorithm)
         };
+
         return getPythonGeneratedHTML(cmd,name_analysis, request, headers);
     }
 
