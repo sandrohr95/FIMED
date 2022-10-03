@@ -222,7 +222,7 @@
                                 <option selected value=2>GRNBOOST2</option>
                                 <option value = 3>PANDA</option>
                                 <option value= 4>LIONESS</option>
-
+                                <option value= 5>ENSEMBLER</option>
                             </select>
                         </div>
                         <div class="col-sm-offset-1 col-sm-4">
